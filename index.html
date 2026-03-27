@@ -3,14 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Last.fm Auth</title>
+  <title>Token Viewer</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h2>Connect with Last.fm</h2>
 
-  <button onclick="login()">Login with Last.fm</button>
+  <div class="container">
+    <h1>Last.fm Token</h1>
 
-  <p id="status"></p>
+    <div class="card">
+      <p class="label">Your Token:</p>
+
+      <div class="token-box">
+        <span id="tokenText">Loading...</span>
+      </div>
+
+      <button id="toggleBtn" onclick="toggleToken()">Show / Hide</button>
+      <button onclick="copyToken()">Copy Token</button>
+    </div>
+
+    <p id="status"></p>
+  </div>
 
   <script src="script.js"></script>
 </body>
