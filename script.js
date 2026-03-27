@@ -1,31 +1,42 @@
 // ===============================
-// 🔑 CONFIG (PUT YOUR API KEY HERE)
+// 🔑 CONFIG (API KEY HERE)
 // ===============================
 const API_KEY = "ef993e4f5fede5b24aca49ed0ac494ab";
 
 // ===============================
-// 🚀 LOGIN FUNCTION
+// 📥 GET TOKEN FROM URL
 // ===============================
-function login() {
-  const url = `https://www.last.fm/api/auth/?api_key=${API_KEY}&cb=${window.location.origin}`;
-  window.location.href = url;
+const params = new URLSearchParams(window.location.search);
+let token = params.get("token");
+
+// DOM elements
+const tokenText = document.getElementById("tokenText");
+const status = document.getElementById("status");
+
+if (token) {
+  tokenText.innerText = token;
+  status.innerText = "Token loaded successfully";
+} else {
+  tokenText.innerText = "No token found in URL";
 }
 
 // ===============================
-// 📥 GET TOKEN AFTER REDIRECT
+// 👁 TOGGLE SHOW/HIDE TOKEN
 // ===============================
-const params = new URLSearchParams(window.location.search);
-const token = params.get("token");
+let hidden = false;
+
+function toggleToken() {
+  hidden = !hidden;
+  tokenText.style.filter = hidden ? "blur(6px)" : "none";
+}
 
 // ===============================
-// 📌 DISPLAY TOKEN
+// 📋 COPY TOKEN
 // ===============================
-if (token) {
-  document.getElementById("status").innerText =
-    "Login successful! Token received.";
+function copyToken() {
+  if (!token) return;
 
-  document.body.innerHTML += `
-    <p><b>Copy this token:</b></p>
-    <code>${token}</code>
-  `;
+  navigator.clipboard.writeText(token).then(() => {
+    alert("Token copied!");
+  });
 }
